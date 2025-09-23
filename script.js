@@ -736,6 +736,98 @@ class BackgroundAnimations {
     }
 }
 
+// Image Carousel Functionality
+let currentCarouselSlide = 1;
+const totalCarouselSlides = 3;
+
+function rotateCarousel(direction) {
+    currentCarouselSlide += direction;
+
+    if (currentCarouselSlide > totalCarouselSlides) {
+        currentCarouselSlide = 1;
+    } else if (currentCarouselSlide < 1) {
+        currentCarouselSlide = totalCarouselSlides;
+    }
+
+    updateCarousel();
+}
+
+function currentSlideCarousel(slideNumber) {
+    currentCarouselSlide = slideNumber;
+    updateCarousel();
+}
+
+function updateCarousel() {
+    const cards = document.querySelectorAll('.carousel-card');
+
+    cards.forEach((card, index) => {
+        card.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next');
+
+        const cardPosition = index + 1;
+
+        if (cardPosition === currentCarouselSlide) {
+            card.classList.add('active');
+        } else {
+            // Calculate relative position considering circular nature
+            let relativePosition = cardPosition - currentCarouselSlide;
+
+            // Normalize to handle wrap-around
+            if (relativePosition > totalCarouselSlides / 2) {
+                relativePosition -= totalCarouselSlides;
+            } else if (relativePosition < -totalCarouselSlides / 2) {
+                relativePosition += totalCarouselSlides;
+            }
+
+            // Apply appropriate class based on position
+            if (relativePosition === 1) {
+                card.classList.add('next');
+            } else if (relativePosition === -1) {
+                card.classList.add('prev');
+            } else if (relativePosition > 1) {
+                card.classList.add('far-next');
+            } else if (relativePosition < -1) {
+                card.classList.add('far-prev');
+            }
+        }
+    });
+}
+
+// Auto-rotate carousel
+let carouselAutoRotate;
+
+function startCarouselAutoRotate() {
+    carouselAutoRotate = setInterval(() => {
+        rotateCarousel(1);
+    }, 6000);
+}
+
+function stopCarouselAutoRotate() {
+    if (carouselAutoRotate) {
+        clearInterval(carouselAutoRotate);
+    }
+}
+
+// Initialize carousel when on the appropriate slide
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.image-carousel');
+    if (carousel) {
+        updateCarousel();
+
+        // Start auto-rotation when carousel becomes visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startCarouselAutoRotate();
+                } else {
+                    stopCarouselAutoRotate();
+                }
+            });
+        });
+
+        observer.observe(carousel);
+    }
+});
+
 // Export for potential external use
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
@@ -743,6 +835,8 @@ if (typeof module !== 'undefined' && module.exports) {
         AutoAdvance,
         SlideTransitions,
         PresentationNotes,
-        BackgroundAnimations
+        BackgroundAnimations,
+        rotateCarousel,
+        currentSlideCarousel
     };
 }

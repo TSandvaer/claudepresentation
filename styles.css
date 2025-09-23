@@ -733,6 +733,87 @@ body::after {
     text-align: center;
 }
 
+/* Image Carousel */
+.image-carousel {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-container {
+    position: relative;
+    width: 600px;
+    height: 300px;
+    perspective: 1200px;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+.carousel-card {
+    position: absolute;
+    width: 400px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(79, 172, 254, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    cursor: pointer;
+
+    /* Initial position - far to the side and rotated */
+    transform: translateZ(-300px) rotateY(60deg) translateX(-150px);
+    opacity: 0.2;
+    z-index: 1;
+}
+
+.carousel-card.active {
+    transform: translateZ(50px) rotateY(0deg) translateX(100px);
+    opacity: 1;
+    z-index: 3;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.carousel-card.prev {
+    transform: translateZ(-150px) rotateY(-45deg) translateX(-20px);
+    opacity: 0.5;
+    z-index: 2;
+}
+
+.carousel-card.next {
+    transform: translateZ(-150px) rotateY(45deg) translateX(220px);
+    opacity: 0.5;
+    z-index: 2;
+}
+
+.carousel-card.far-prev {
+    transform: translateZ(-300px) rotateY(-75deg) translateX(-100px);
+    opacity: 0.2;
+    z-index: 1;
+}
+
+.carousel-card.far-next {
+    transform: translateZ(-300px) rotateY(75deg) translateX(300px);
+    opacity: 0.2;
+    z-index: 1;
+}
+
+.carousel-card img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid rgba(79, 172, 254, 0.2);
+}
+
+
+
 /* Navigation Controls */
 .nav-controls {
     position: fixed;
@@ -899,6 +980,27 @@ body::after {
     .polaroid-caption {
         font-size: 12px;
         bottom: 8px;
+    }
+
+    .carousel-container {
+        width: 350px;
+        height: 220px;
+    }
+
+    .carousel-card {
+        width: 280px;
+    }
+
+    .carousel-card.active {
+        transform: translateZ(50px) rotateY(0deg) translateX(35px);
+    }
+
+    .carousel-card.prev {
+        transform: translateZ(-150px) rotateY(-45deg) translateX(-20px);
+    }
+
+    .carousel-card.next {
+        transform: translateZ(-150px) rotateY(45deg) translateX(90px);
     }
 }
 
