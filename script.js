@@ -400,7 +400,6 @@ class BackgroundAnimations {
 
     init() {
         this.createFloatingCode();
-        this.createGeometricShapes();
         this.createParticles();
         this.createNetworkConnections();
         this.createAINodes();
@@ -463,37 +462,6 @@ class BackgroundAnimations {
     }
 
 
-    createGeometricShapes() {
-        const geometricBg = document.getElementById('geometricBg');
-        if (!geometricBg) return;
-
-        for (let i = 0; i < 10; i++) {
-            setTimeout(() => {
-                const shapeType = Math.random() > 0.5 ? 'hex-shape' : 'triangle-shape';
-                const shape = document.createElement('div');
-                shape.className = `geometric-shape ${shapeType}`;
-
-                shape.style.left = Math.random() * 100 + '%';
-                shape.style.top = Math.random() * 100 + '%';
-                shape.style.animationDelay = Math.random() * 10 + 's';
-                shape.style.animationDuration = (15 + Math.random() * 10) + 's';
-
-                geometricBg.appendChild(shape);
-
-                // Add circuit lines occasionally
-                if (Math.random() > 0.7) {
-                    const line = document.createElement('div');
-                    line.className = 'circuit-lines';
-                    line.style.left = Math.random() * 100 + '%';
-                    line.style.top = Math.random() * 100 + '%';
-                    line.style.height = (50 + Math.random() * 100) + 'px';
-                    line.style.animationDelay = Math.random() * 8 + 's';
-                    geometricBg.appendChild(line);
-                }
-
-            }, i * 500);
-        }
-    }
 
     createParticles() {
         const codeBackground = document.getElementById('codeBackground');
@@ -721,40 +689,10 @@ class BackgroundAnimations {
     }
 
     createDataCenterElements() {
-        const geometricBg = document.getElementById('geometricBg');
-        if (!geometricBg) return;
+        const networkLayer = document.getElementById('networkLayer');
+        if (!networkLayer) return;
 
-        // Create server racks
-        for (let i = 0; i < 6; i++) {
-            setTimeout(() => {
-                const rack = document.createElement('div');
-                rack.className = 'server-rack';
-
-                rack.style.top = Math.random() * 80 + '%';
-                rack.style.left = Math.random() * 95 + '%';
-                rack.style.animationDelay = Math.random() * 3 + 's';
-                rack.style.height = (40 + Math.random() * 40) + 'px';
-
-                geometricBg.appendChild(rack);
-            }, i * 1000);
-        }
-
-        // Create geometric mesh patterns
-        for (let i = 0; i < 4; i++) {
-            setTimeout(() => {
-                const mesh = document.createElement('div');
-                mesh.className = 'geometric-mesh';
-
-                mesh.style.top = Math.random() * 70 + '%';
-                mesh.style.left = Math.random() * 70 + '%';
-                mesh.style.animationDelay = Math.random() * 20 + 's';
-                mesh.style.opacity = 0.3 + Math.random() * 0.4;
-
-                geometricBg.appendChild(mesh);
-            }, i * 2000);
-        }
-
-        // Create data streams
+        // Create data streams in network layer instead
         for (let i = 0; i < 8; i++) {
             setTimeout(() => {
                 const stream = document.createElement('div');
@@ -765,7 +703,7 @@ class BackgroundAnimations {
                 stream.style.animationDelay = Math.random() * 6 + 's';
                 stream.style.height = (60 + Math.random() * 80) + 'px';
 
-                geometricBg.appendChild(stream);
+                networkLayer.appendChild(stream);
             }, i * 800);
         }
 
@@ -776,30 +714,19 @@ class BackgroundAnimations {
     }
 
     addDataCenterElement() {
-        const geometricBg = document.getElementById('geometricBg');
-        if (!geometricBg) return;
+        const networkLayer = document.getElementById('networkLayer');
+        if (!networkLayer) return;
 
-        const elementTypes = ['server-rack', 'data-stream', 'geometric-mesh'];
-        const type = elementTypes[Math.floor(Math.random() * elementTypes.length)];
-
+        // Only create data streams now
         const element = document.createElement('div');
-        element.className = type;
+        element.className = 'data-stream';
 
         element.style.top = Math.random() * 80 + '%';
         element.style.left = Math.random() * 90 + '%';
+        element.style.animationDelay = Math.random() * 6 + 's';
+        element.style.height = (60 + Math.random() * 80) + 'px';
 
-        if (type === 'server-rack') {
-            element.style.animationDelay = Math.random() * 3 + 's';
-            element.style.height = (40 + Math.random() * 40) + 'px';
-        } else if (type === 'data-stream') {
-            element.style.animationDelay = Math.random() * 6 + 's';
-            element.style.height = (60 + Math.random() * 80) + 'px';
-        } else if (type === 'geometric-mesh') {
-            element.style.animationDelay = Math.random() * 20 + 's';
-            element.style.opacity = 0.2 + Math.random() * 0.3;
-        }
-
-        geometricBg.appendChild(element);
+        networkLayer.appendChild(element);
 
         setTimeout(() => {
             if (element.parentNode) {
