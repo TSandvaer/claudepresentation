@@ -828,6 +828,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Toggle installation guide function
+function toggleInstallGuide() {
+    const guide = document.getElementById('installGuide');
+    const heading = document.querySelector('[onclick="toggleInstallGuide()"]');
+
+    if (guide.style.display === 'none') {
+        guide.style.display = 'block';
+        heading.innerHTML = heading.innerHTML.replace('▼', '▲');
+    } else {
+        guide.style.display = 'none';
+        heading.innerHTML = heading.innerHTML.replace('▲', '▼');
+    }
+}
+
 // Export for potential external use
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
