@@ -144,13 +144,39 @@ body::after {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(8px);
     border-radius: 20px;
     padding: 40px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(79, 172, 254, 0.6) rgba(0, 0, 0, 0.3);
+}
+
+/* Custom Scrollbar for Webkit Browsers (Chrome, Safari, Edge) */
+.slide-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.slide-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.slide-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(79, 172, 254, 0.6) 0%, rgba(0, 242, 254, 0.6) 100%);
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.slide-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(79, 172, 254, 0.9) 0%, rgba(0, 242, 254, 0.9) 100%);
+    box-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
 }
 
 /* Typography */
@@ -289,6 +315,31 @@ body::after {
     gap: 1.2rem;
     max-height: 320px;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(79, 172, 254, 0.6) rgba(0, 0, 0, 0.3);
+    padding-right: 10px;
+}
+
+/* Custom Scrollbar for Testimonials Grid */
+.testimonials-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.testimonials-grid::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.testimonials-grid::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(79, 172, 254, 0.6) 0%, rgba(0, 242, 254, 0.6) 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.testimonials-grid::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(79, 172, 254, 0.9) 0%, rgba(0, 242, 254, 0.9) 100%);
+    box-shadow: 0 0 8px rgba(79, 172, 254, 0.5);
 }
 
 .testimonial-card {
